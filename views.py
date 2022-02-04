@@ -6,6 +6,7 @@ from app import app
 from validator import validate
 from models import User, Advertisement
 from schema import USER_CREATE, ADV_CREATE
+from send_mail import SendMailView
 
 
 class UserView(MethodView):
@@ -89,5 +90,17 @@ app.add_url_rule(
 app.add_url_rule(
     '/adv/',
     view_func=AdvertisementView.as_view('advertisements_post'),
+    methods=['POST', ]
+)
+
+
+app.add_url_rule(
+    '/send/<string:task_id>',
+    view_func=SendMailView.as_view('send_get'),
+    methods=['GET', ]
+)
+app.add_url_rule(
+    '/send/',
+    view_func=SendMailView.as_view('send_post'),
     methods=['POST', ]
 )
